@@ -33,4 +33,5 @@ class Colours {
   static Color blackfont = Color(0xff212121);
   static Color blue66B9DF = Color(0xff66B9DF);
   static Color black222222 = Color(0xff222222);
+  static Color grey9B9B9B = Color(0xff9B9B9B);
 }

@@ -1,14 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ok_barter/core/const/colours.dart';
-import 'package:ok_barter/core/const/fonts.dart';
-import 'package:ok_barter/core/extensions/sizedbox_extension.dart';
-import 'package:ok_barter/core/routes/router.dart';
-import 'package:ok_barter/features/home/bloc/home_bloc.dart';
-import 'package:ok_barter/features/home/components/components.dart';
-import 'package:ok_barter/features/home/components/product_card.dart';
-import 'package:ok_barter/features/home/list/list.dart';
+import 'package:okbarter2/core/extensions/app_imports.dart';
+import 'package:okbarter2/features/home/bloc/home_bloc.dart';
+import 'package:okbarter2/features/home/components/components.dart';
+import 'package:okbarter2/features/home/components/product_card.dart';
+import 'package:okbarter2/features/home/list/list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -155,7 +149,9 @@ class HomeScreen extends StatelessWidget {
                         }
                         return productCard(
                           ontap: () {
-                            goRouter.pushNamed(Routes.productDetailScreen.name);
+                            goRouter.pushNamed(
+                              Routes.productDetailsScreen.name,
+                            );
                           },
                           img:
                               "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=684&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

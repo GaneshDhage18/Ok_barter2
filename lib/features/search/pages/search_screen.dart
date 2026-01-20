@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ok_barter/core/extensions/sizedbox_extension.dart';
-import 'package:ok_barter/features/home/components/components.dart';
+import 'package:okbarter2/core/extensions/app_imports.dart';
+import 'package:okbarter2/features/home/components/components.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});

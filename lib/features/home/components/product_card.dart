@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ok_barter/core/const/colours.dart';
-import 'package:ok_barter/core/const/fonts.dart';
+
+import '../../../core/extensions/app_imports.dart';
 
 Widget productCard({img, price, productName, location, date, ontap}) {
   return Stack(

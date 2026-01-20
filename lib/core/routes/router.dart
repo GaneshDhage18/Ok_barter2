@@ -17,12 +17,16 @@ import 'package:okbarter2/features/bottomNavigationBar/pages/bottomNavigationBar
 import 'package:okbarter2/features/bottomNavigationBar/pages/home_screen.dart';
 import 'package:okbarter2/features/bottomNavigationBar/pages/profile_screen.dart';
 import 'package:okbarter2/features/chat/pages/chat_screen.dart';
+import 'package:okbarter2/features/home/bloc/home_bloc.dart';
+import 'package:okbarter2/features/home/pages/home_screen.dart';
 import 'package:okbarter2/features/instrest/bloc/instrest_bloc.dart';
 import 'package:okbarter2/features/instrest/pages/instrest_screen.dart';
 import 'package:okbarter2/features/location/pages/confirm_location_screen.dart';
 import 'package:okbarter2/features/location/pages/location_screen.dart';
 import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 import 'package:okbarter2/features/messages/pages/messages_screen.dart';
+import 'package:okbarter2/features/product_details/pages/product_details_screen.dart';
+import 'package:okbarter2/features/search/pages/search_screen.dart';
 
 enum Routes {
   splashScreen,
@@ -30,8 +34,8 @@ enum Routes {
   confirmLocationScreen,
   messagesScreen,
   chatScreen,
-
   landingScreen,
+  productDetailsScreen,
   signUpScreen,
   otpVerificationScreen,
   signInScreen,
@@ -44,10 +48,11 @@ enum Routes {
   instrestScreen,
   productAddedSuccesfuly,
   addProduct,
+  searchScreen,
 }
 
 GoRouter goRouter = GoRouter(
-  // initialLocation: '/',
+  initialLocation: '/homeScreen',
   routes: [
     GoRoute(
       path: "/",
@@ -167,9 +172,24 @@ GoRouter goRouter = GoRouter(
           BottomNavigationBarScreen(child: child),
       routes: [
         GoRoute(
-          path: "/home",
+          path: "/homeScreen",
           name: Routes.homeScreen.name,
-          builder: (context, state) => HomeScreen(),
+          builder: (context, state) => BlocProvider(
+            create: (context) => HomeBloc(),
+            child: HomeScreen(),
+          ),
+          routes: [
+            GoRoute(
+              path: "/productDetailsScreen",
+              name: Routes.productDetailsScreen.name,
+              builder: (context, state) => ProductDetailsScreen(),
+            ),
+            GoRoute(
+              path: "/searchScreen",
+              name: Routes.searchScreen.name,
+              builder: (context, state) => SearchScreen(),
+            ),
+          ],
         ),
         GoRoute(
           path: "/profile",
