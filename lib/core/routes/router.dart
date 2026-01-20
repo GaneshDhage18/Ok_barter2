@@ -30,7 +30,6 @@ enum Routes {
   confirmLocationScreen,
   messagesScreen,
   chatScreen,
-
   landingScreen,
   signUpScreen,
   otpVerificationScreen,
@@ -47,7 +46,7 @@ enum Routes {
 }
 
 GoRouter goRouter = GoRouter(
-  // initialLocation: '/',
+  initialLocation: '/home',
   routes: [
     GoRoute(
       path: "/",
@@ -101,65 +100,20 @@ GoRouter goRouter = GoRouter(
         );
       },
     ),
-    GoRoute(
-      path: "/AccountScreen",
-      name: Routes.accountScreen.name,
-      pageBuilder: (context, state) => CustomTransitionPage(
-        key: state.pageKey,
-        child: AccountScreen(),
-        transitionsBuilder: rotationFadeTransition,
-      ),
-      routes: [
-        GoRoute(
-          path: "helpandsupportscreen",
-          name: Routes.helpandsupportScreen.name,
-          pageBuilder: (context, state) => CustomTransitionPage(
-            key: state.pageKey,
-            child: HelpAndSupportScreen(),
-            transitionsBuilder: rotationFadeTransition,
-          ),
-        ),
-        GoRoute(
-          path: "WishListScreen",
-          name: Routes.wishListScreen.name,
-          pageBuilder: (context, state) => CustomTransitionPage(
-            key: state.pageKey,
-            child: WishlistScreen(),
-            transitionsBuilder: rotationFadeTransition,
-          ),
-        ),
-        GoRoute(
-          path: "settingsScreen",
-          name: Routes.settingsScreen.name,
-          pageBuilder: (context, state) => CustomTransitionPage(
-            key: state.pageKey,
-            child: SettingsScreen(),
-            transitionsBuilder: rotationFadeTransition,
-          ),
-        ),
-        GoRoute(
-          path: "/instrestScreen",
-          name: Routes.instrestScreen.name,
-          builder: (context, state) => BlocProvider(
-            create: (context) => InstrestBloc(),
-            child: InstrestScreen(),
-          ),
-        ),
 
-        GoRoute(
-          path: "/addproduct",
-          name: Routes.addProduct.name,
-          builder: (context, state) => BlocProvider(
-            create: (context) => AddProductBloc(),
-            child: AddProductScreen(),
-          ),
-        ),
-        GoRoute(
-          path: "/productaddedsuccess",
-          name: Routes.productAddedSuccesfuly.name,
-          builder: (context, state) => AddproductSuccessScreen(),
-        ),
-      ],
+    GoRoute(
+      path: "/instrestScreen",
+      name: Routes.instrestScreen.name,
+      builder: (context, state) => BlocProvider(
+        create: (context) => InstrestBloc(),
+        child: InstrestScreen(),
+      ),
+    ),
+
+    GoRoute(
+      path: "/productaddedsuccess",
+      name: Routes.productAddedSuccesfuly.name,
+      builder: (context, state) => AddproductSuccessScreen(),
     ),
 
     ShellRoute(
@@ -172,9 +126,55 @@ GoRouter goRouter = GoRouter(
           builder: (context, state) => HomeScreen(),
         ),
         GoRoute(
-          path: "/profile",
-          name: Routes.profileScreen.name,
-          builder: (context, state) => ProfileScreen(),
+          path: "/messages",
+          name: Routes.messagesScreen.name,
+          builder: (context, state) => MessagesScreen(),
+        ),
+        GoRoute(
+          path: "/addproduct",
+          name: Routes.addProduct.name,
+          builder: (context, state) => BlocProvider(
+            create: (context) => AddProductBloc(),
+            child: AddProductScreen(),
+          ),
+        ),
+        GoRoute(
+          path: "/AccountScreen",
+          name: Routes.accountScreen.name,
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: AccountScreen(),
+            transitionsBuilder: rotationFadeTransition,
+          ),
+          routes: [
+            GoRoute(
+              path: "helpandsupportscreen",
+              name: Routes.helpandsupportScreen.name,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                key: state.pageKey,
+                child: HelpAndSupportScreen(),
+                transitionsBuilder: rotationFadeTransition,
+              ),
+            ),
+            GoRoute(
+              path: "WishListScreen",
+              name: Routes.wishListScreen.name,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                key: state.pageKey,
+                child: WishlistScreen(),
+                transitionsBuilder: rotationFadeTransition,
+              ),
+            ),
+            GoRoute(
+              path: "settingsScreen",
+              name: Routes.settingsScreen.name,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                key: state.pageKey,
+                child: SettingsScreen(),
+                transitionsBuilder: rotationFadeTransition,
+              ),
+            ),
+          ],
         ),
       ],
     ),
@@ -183,14 +183,7 @@ GoRouter goRouter = GoRouter(
       name: Routes.confirmLocationScreen.name,
       builder: (context, state) => ConfirmLocationScreen(),
     ),
-    GoRoute(
-      path: "/messagesScreen",
-      name: Routes.messagesScreen.name,
-      builder: (context, state) => BlocProvider(
-        create: (context) => MessagesBloc(),
-        child: MessagesScreen(),
-      ),
-    ),
+
     GoRoute(
       path: "/chatScreen",
       name: Routes.chatScreen.name,

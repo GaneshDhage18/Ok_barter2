@@ -1,6 +1,6 @@
 class Assets {
   static String logo = "assets/icons/logo.svg";
-  static String igsplashLocationLogo = "assets/images/locationSplashLogo.png";
+  static String igLocationSplashLOgo = "assets/images/locationSplashLogo.png";
   static String iccancelLocation = "assets/icons/Additional Icons.svg";
   static String igTurnOnLocationIcon = "assets/images/turnOnLocationIcon.png";
   static String icSearchIcon = "assets/icons/Search.svg";
@@ -21,5 +21,7 @@ class Assets {
   static String chat = "assets/icons/Chat.svg";
   static String cart = "assets/icons/cart.svg";
   static String phoneSvg = "assets/icons/phoneSvg.svg";
+  static String person = "assets/icons/person.svg";
+
 
 }

@@ -25,7 +25,7 @@ class LocationScreen extends StatelessWidget {
             SizedBox(
               height: 288.h,
               width: 344.w,
-              child: Image.asset(Assets.igsplashLocationLogo),
+              child: Image.asset(Assets.igLocationSplashLOgo),
             ),
             Spacer(),
             Container(

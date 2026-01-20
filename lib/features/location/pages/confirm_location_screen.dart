@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +12,6 @@ import 'package:okbarter2/core/routes/router.dart';
 import 'package:okbarter2/features/location/components/custom_text_validator.dart';
 import 'package:okbarter2/features/location/components/custom_textfield.dart';
 import 'package:okbarter2/features/location/components/filled_button.dart';
-
 
 class ConfirmLocationScreen extends StatefulWidget {
   const ConfirmLocationScreen({super.key});
@@ -126,6 +127,20 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Completer<GoogleMapController> _controller =
+        Completer<GoogleMapController>();
+
+    const CameraPosition _kGooglePlex = CameraPosition(
+      target: LatLng(37.42796133580664, -122.085749655962),
+      zoom: 14.4746,
+    );
+
+    const CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -144,31 +159,43 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
       ),
       body: Stack(
         children: [
+          // GoogleMap(
+          //   initialCameraPosition: CameraPosition(target: _center, zoom: 14),
+          //   markers: {
+          //     Marker(
+          //       markerId: const MarkerId('center_marker'),
+          //       position: _center,
+          //     ),
+          //   },
+          //   circles: {
+          //     Circle(
+          //       circleId: const CircleId('radius_circle'),
+          //       center: _center,
+          //       radius: 600, // meters
+          //       fillColor: Colours.green178777.withOpacity(0.15),
+          //       strokeColor: Colors.transparent,
+          //       strokeWidth: 0,
+          //     ),
+          //   },
+          //   myLocationEnabled: true,
+          //   myLocationButtonEnabled: true,
+          //   onMapCreated: (controller) {
+          //     _mapController = controller;
+          //   },
+          // ),
           GoogleMap(
-            initialCameraPosition: CameraPosition(target: _center, zoom: 14),
-            markers: {
-              Marker(
-                markerId: const MarkerId('center_marker'),
-                position: _center,
-              ),
-            },
-            circles: {
-              Circle(
-                circleId: const CircleId('radius_circle'),
-                center: _center,
-                radius: 600, // meters
-                fillColor: Colours.green178777.withOpacity(0.15),
-                strokeColor: Colors.transparent,
-                strokeWidth: 0,
-              ),
-            },
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            onMapCreated: (controller) {
-              _mapController = controller;
+            mapType: MapType.hybrid,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
             },
           ),
 
+          // floatingActionButton: FloatingActionButton.extended(
+          //   onPressed: _goToTheLake,
+          //   label: const Text('To the lake!'),
+          //   icon: const Icon(Icons.directions_boat),
+          // ),
           Column(
             children: [
               Padding(

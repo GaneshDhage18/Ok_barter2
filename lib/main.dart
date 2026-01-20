@@ -1,10 +1,11 @@
-
 import 'package:okbarter2/core/extensions/app_imports.dart';
 import 'package:okbarter2/features/auth/bloc/auth_bloc.dart';
+import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 
 void main() {
   runApp(const okbarter2());
 }
+
 class okbarter2 extends StatelessWidget {
   const okbarter2({super.key});
 
@@ -13,12 +14,16 @@ class okbarter2 extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(428, 926),
       child: MultiBlocProvider(
-        providers: [BlocProvider(create: (context) => AuthBloc())],
+        providers: [
+          BlocProvider(create: (context) => AuthBloc()),
+          BlocProvider(create: (context) => MessagesBloc()),
+        ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           routerConfig: goRouter,
         ),
       ),
-    );;
+    );
+    ;
   }
 }
