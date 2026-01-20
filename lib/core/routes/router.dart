@@ -15,13 +15,11 @@ import 'package:okbarter2/features/auth/pages/signup_screen.dart';
 import 'package:okbarter2/features/auth/pages/splash_screen.dart';
 import 'package:okbarter2/features/bottomNavigationBar/pages/bottomNavigationBar_screen.dart';
 import 'package:okbarter2/features/bottomNavigationBar/pages/home_screen.dart';
-import 'package:okbarter2/features/bottomNavigationBar/pages/profile_screen.dart';
 import 'package:okbarter2/features/chat/pages/chat_screen.dart';
 import 'package:okbarter2/features/instrest/bloc/instrest_bloc.dart';
 import 'package:okbarter2/features/instrest/pages/instrest_screen.dart';
 import 'package:okbarter2/features/location/pages/confirm_location_screen.dart';
 import 'package:okbarter2/features/location/pages/location_screen.dart';
-import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 import 'package:okbarter2/features/messages/pages/messages_screen.dart';
 
 enum Routes {
@@ -46,7 +44,7 @@ enum Routes {
 }
 
 GoRouter goRouter = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: "/",
