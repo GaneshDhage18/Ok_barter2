@@ -1,0 +1,1 @@
+// c:\Users\Lenovo\OneDrive\Desktop\New flutter Projects\okbarter\lib\features\product_details\models\product_details_model.dart for product_details feature

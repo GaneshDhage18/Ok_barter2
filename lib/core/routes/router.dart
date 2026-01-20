@@ -178,11 +178,11 @@ GoRouter goRouter = GoRouter(
         ),
       ],
     ),
-    GoRoute(
-      path: "/confirmLocationScreen",
-      name: Routes.confirmLocationScreen.name,
-      builder: (context, state) => ConfirmLocationScreen(),
-    ),
+    // GoRoute(
+    //   path: "/confirmLocationScreen",
+    //   name: Routes.confirmLocationScreen.name,
+    //   builder: (context, state) => ConfirmLocationScreen(),
+    // ),
     GoRoute(
       path: "/messagesScreen",
       name: Routes.messagesScreen.name,

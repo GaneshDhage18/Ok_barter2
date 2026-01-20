@@ -1,0 +1,1 @@
+// c:\Users\Lenovo\OneDrive\Desktop\New flutter Projects\okbarter\lib\features\search\models\search_model.dart for search feature

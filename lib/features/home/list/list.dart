@@ -1,0 +1,30 @@
+final List<String> categories = [
+  "Electronics",
+  "Electronic Gadgets",
+  "Home Appliances",
+  "Home Furniture",
+  "Kitchen Appliances",
+  "Mobile & Accessories",
+  "Laptops & Computers",
+  "Gaming & Consoles",
+  "Toys & Games",
+  "Books & Stationery",
+  "Fashion & Clothing",
+  "Footwear",
+  "Beauty & Personal Care",
+  "Sports & Fitness",
+  "Automobile Accessories",
+];
+
+// final List<String> priceList = [
+//   "₹499",
+//   "₹799",
+//   "₹1,199",
+//   "₹1,499",
+//   "₹1,999",
+//   "₹2,499",
+//   "₹3,999",
+//   "₹5,999",
+//   "₹5,999",
+//   "₹5,999",
+// ];
