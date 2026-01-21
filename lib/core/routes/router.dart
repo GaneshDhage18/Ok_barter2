@@ -44,7 +44,7 @@ enum Routes {
 }
 
 GoRouter goRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/home',
   routes: [
     GoRoute(
       path: "/",

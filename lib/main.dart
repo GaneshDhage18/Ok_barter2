@@ -3,11 +3,11 @@ import 'package:okbarter2/features/auth/bloc/auth_bloc.dart';
 import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 
 void main() {
-  runApp(const okbarter2());
+  runApp(const OkBarter());
 }
 
-class okbarter2 extends StatelessWidget {
-  const okbarter2({super.key});
+class OkBarter extends StatelessWidget {
+  const OkBarter({super.key});
 
   @override
   Widget build(BuildContext context) {
