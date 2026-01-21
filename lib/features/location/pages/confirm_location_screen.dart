@@ -8,122 +8,167 @@ import 'package:okbarter2/core/const/colours.dart';
 import 'package:okbarter2/core/const/fonts.dart';
 import 'package:okbarter2/core/const/urls.dart';
 import 'package:okbarter2/core/extensions/sizedbox_extension.dart';
-import 'package:okbarter2/core/routes/router.dart';
-import 'package:okbarter2/features/location/components/custom_text_validator.dart';
-import 'package:okbarter2/features/location/components/custom_textfield.dart';
 import 'package:okbarter2/features/location/components/filled_button.dart';
 
 class ConfirmLocationScreen extends StatefulWidget {
   const ConfirmLocationScreen({super.key});
 
   @override
-  State<ConfirmLocationScreen> createState() => _ConfirmLocationScreenState();
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
 }
 
 class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
-  final LatLng _center = const LatLng(19.0760, 72.8777);
-  late GoogleMapController _mapController;
+  //   final LatLng _center = const LatLng(19.0760, 72.8777);
+  //   late GoogleMapController _mapController;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  //   @override
+  //   void initState() {
+  //     super.initState();
+  //   }
 
-  Set<Marker> get _markers => {
-    Marker(markerId: const MarkerId('center'), position: _center),
-  };
+  //   Set<Marker> get _markers => {
+  //     Marker(markerId: const MarkerId('center'), position: _center),
+  //   };
 
-  TextEditingController flatField = TextEditingController();
-  TextEditingController nearbyLandField = TextEditingController();
-  TextEditingController cityField = TextEditingController();
+  //   TextEditingController flatField = TextEditingController();
+  //   TextEditingController nearbyLandField = TextEditingController();
+  //   TextEditingController cityField = TextEditingController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey();
+  //   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  openBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return Container(
-          height: 398.h,
-          padding: EdgeInsets.only(
-            top: 12.h,
-            left: 24.w,
-            right: 22.w,
-            // bottom: 22.h,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16.r),
-          ),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Enter complete address',
-                      style: TextStyle(
-                        color: Colours.black,
-                        fontSize: 20.sp,
-                        fontFamily: Fonts.sRegular,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        goRouter.pop();
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: Colours.black212121,
-                        size: 24.sp,
-                      ),
-                    ),
-                  ],
-                ),
-                29.heightBox,
+  //   openBottomSheet() {
+  //     showModalBottomSheet(
+  //       context: context,
+  //       builder: (_) {
+  //         return Container(
+  //           height: 398.h,
+  //           padding: EdgeInsets.only(
+  //             top: 12.h,
+  //             left: 24.w,
+  //             right: 22.w,
+  //             // bottom: 22.h,
+  //           ),
+  //           decoration: BoxDecoration(
+  //             color: Colors.white,
+  //             borderRadius: BorderRadius.circular(16.r),
+  //           ),
+  //           child: Form(
+  //             key: _formKey,
+  //             child: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                   children: [
+  //                     Text(
+  //                       'Enter complete address',
+  //                       style: TextStyle(
+  //                         color: Colours.black,
+  //                         fontSize: 20.sp,
+  //                         fontFamily: Fonts.sRegular,
+  //                       ),
+  //                     ),
+  //                     IconButton(
+  //                       onPressed: () {
+  //                         goRouter.pop();
+  //                       },
+  //                       icon: Icon(
+  //                         Icons.close,
+  //                         color: Colours.black212121,
+  //                         size: 24.sp,
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //                 29.heightBox,
 
-                customeTextField(
-                  hintText: "Flat / house no / building",
-                  controller: flatField,
-                  validator: (value) => customTextValidator(value),
-                ),
-                15.heightBox,
+  //                 customeTextField(
+  //                   hintText: "Flat / house no / building",
+  //                   controller: flatField,
+  //                   validator: (value) => customTextValidator(value),
+  //                 ),
+  //                 15.heightBox,
 
-                customeTextField(
-                  hintText: "Nearby landmark",
-                  controller: nearbyLandField,
-                  validator: (value) => customTextValidator(value),
-                ),
-                15.heightBox,
+  //                 customeTextField(
+  //                   hintText: "Nearby landmark",
+  //                   controller: nearbyLandField,
+  //                   validator: (value) => customTextValidator(value),
+  //                 ),
+  //                 15.heightBox,
 
-                customeTextField(
-                  hintText: "Panchavti, Nashik",
-                  controller: cityField,
-                  validator: (value) => customTextValidator(value),
-                ),
+  //                 customeTextField(
+  //                   hintText: "Panchavti, Nashik",
+  //                   controller: cityField,
+  //                   validator: (value) => customTextValidator(value),
+  //                 ),
 
-                30.heightBox,
-                SizedBox(
-                  width: double.infinity,
-                  height: 58.h,
-                  child: filledButton(
-                    onPressed: () {
-                      goRouter.goNamed(Routes.messagesScreen.name);
-                      if (_formKey.currentState!.validate()) {}
-                    },
-                    title: 'Save address',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
+  //                 30.heightBox,
+  //                 SizedBox(
+  //                   width: double.infinity,
+  //                   height: 58.h,
+  //                   child: filledButton(
+  //                     onPressed: () {
+  //                       goRouter.goNamed(Routes.messagesScreen.name);
+  //                       if (_formKey.currentState!.validate()) {}
+  //                     },
+  //                     title: 'Save address',
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       },
+  //     );
+  //   }
+
+  //   @override
+  //   Widget build(BuildContext context) {
+  //     return Scaffold(
+  //       appBar: AppBar(
+  //         title: Padding(
+  //           padding: EdgeInsets.only(left: 4.w),
+  //           child: Row(
+  //             children: [
+  //               const Icon(Icons.arrow_back_ios_new),
+  //               SizedBox(width: 16.w),
+  //               Text(
+  //                 'Confirm location',
+  //                 style: TextStyle(fontSize: 16.sp, fontFamily: Fonts.sRegular),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //       body: Stack(
+  //         children: [
+  //           GoogleMap(
+  //             initialCameraPosition: CameraPosition(target: _center, zoom: 14),
+  //             markers: {
+  //               Marker(
+  //                 markerId: const MarkerId('center_marker'),
+  //                 position: _center,
+  //               ),
+  //             },
+  //             circles: {
+  //               Circle(
+  //                 circleId: const CircleId('radius_circle'),
+  //                 center: _center,
+  //                 radius: 600, // meters
+  //                 fillColor: Colours.green178777.withOpacity(0.15),
+  //                 strokeColor: Colors.transparent,
+  //                 strokeWidth: 0,
+  //               ),
+  //             },
+  //             myLocationEnabled: true,
+  //             myLocationButtonEnabled: true,
+  //             onMapCreated: (controller) {
+  //               _mapController = controller;
+  //             },
+  //           ),
 
   @override
   Widget build(BuildContext context) {
@@ -349,9 +394,7 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
                       width: double.infinity,
                       height: 58.h,
                       child: filledButton(
-                        onPressed: () {
-                          openBottomSheet();
-                        },
+                        onPressed: () {},
                         title: 'Add more address details',
                       ),
                     ),
