@@ -124,9 +124,7 @@ class HomeScreen extends StatelessWidget {
                           },
                         ),
                         23.heightBox,
-                        Image.asset(
-                          "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
-                        ),
+                        Image.asset(Assets.igHomeAdBanner2),
                         20.heightBox,
                       ],
                     ),
@@ -184,7 +182,8 @@ class HomeScreen extends StatelessWidget {
                           return SizedBox(width: 24.w);
                         }
                         return productCard(
-                          img: "assets/images/iphoneImg.png",
+                          img:
+                              "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=684&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                           price: "1200",
                           productName: "Rockerz 460",
                           location: "Nashik",
@@ -194,7 +193,11 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   23.heightBox,
-                  Image.asset("assets/images/banner1.png"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: Image.asset(Assets.igHomeAdBanner1),
+                  ),
+
                   20.heightBox,
 
                   sectionHeader(
@@ -215,7 +218,8 @@ class HomeScreen extends StatelessWidget {
                           return SizedBox(width: 24.w);
                         }
                         return productCard(
-                          img: "assets/images/iphoneImg.png",
+                          img:
+                              "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=684&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                           price: "1200",
                           productName: "Rockerz 460",
                           location: "Nashik",

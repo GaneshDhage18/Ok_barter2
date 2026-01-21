@@ -87,7 +87,7 @@ openDialogBox(context) {
                     ),
                     TextButton(
                       onPressed: () async {
-                        await openAppSettings();
+                        // await openAppSettings();
                         goRouter.goNamed(Routes.confirmLocationScreen.name);
                       },
                       child: Text(

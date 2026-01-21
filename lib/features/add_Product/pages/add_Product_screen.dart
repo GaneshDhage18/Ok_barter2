@@ -6,8 +6,6 @@ import 'package:okbarter2/features/add_Product/components/lists.dart';
 
 import 'package:okbarter2/features/add_Product/components/textformfeild.dart';
 
-
-
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
 
@@ -57,7 +55,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
               alignment: Alignment.centerLeft,
               child: Row(
                 children: [
-                  Icon(Icons.arrow_back, color: Colors.white, size: 28.w),
+                  IconButton(
+                    onPressed: () {
+                      goRouter.pop();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 28.w,
+                    ),
+                  ),
                   30.widthBox,
                   Text(
                     "Add product for Barter",
@@ -285,7 +292,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                       12.heightBox,
 
-                       CustomTextFormField(
+                      CustomTextFormField(
                         isrequired: true,
                         controller: desccontroller,
                         hintText: 'Processor: AMD Ryzen 3 5300U...',

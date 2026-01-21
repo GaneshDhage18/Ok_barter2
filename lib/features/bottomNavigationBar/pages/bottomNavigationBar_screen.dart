@@ -12,9 +12,9 @@ class BottomNavigationBarScreen extends StatelessWidget {
 
   /// Bottom tabs
   static const List<String> routes = [
-    '/home',
-    '/messages',
-    '/addproduct',
+    '/homeScreen',
+    '/messagesScreen',
+    '/myproductScreen',
     '/AccountScreen',
   ];
 
@@ -65,7 +65,7 @@ class BottomNavigationBarScreen extends StatelessWidget {
                 Positioned(
                   top: 10.h,
                   child: GestureDetector(
-                    onTap: () => context.go('/addproduct'),
+                    onTap: () => context.push('/addProduct'),
                     child: Container(
                       height: 55.h,
                       width: 55.w,

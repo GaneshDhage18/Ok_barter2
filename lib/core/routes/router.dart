@@ -24,6 +24,7 @@ import 'package:okbarter2/features/location/pages/confirm_location_screen.dart';
 import 'package:okbarter2/features/location/pages/location_screen.dart';
 import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 import 'package:okbarter2/features/messages/pages/messages_screen.dart';
+import 'package:okbarter2/features/my_product/pages/my_product_screen.dart';
 import 'package:okbarter2/features/product_details/pages/product_details_screen.dart';
 import 'package:okbarter2/features/search/pages/search_screen.dart';
 
@@ -48,10 +49,11 @@ enum Routes {
   productAddedSuccesfuly,
   addProduct,
   searchScreen,
+  myproductScreen,
 }
 
 GoRouter goRouter = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/homeScreen',
   routes: [
     GoRoute(
       path: "/",
@@ -120,6 +122,14 @@ GoRouter goRouter = GoRouter(
       name: Routes.productAddedSuccesfuly.name,
       builder: (context, state) => AddproductSuccessScreen(),
     ),
+    GoRoute(
+      path: "/addProduct",
+      name: Routes.addProduct.name,
+      builder: (context, state) => BlocProvider(
+        create: (context) => AddProductBloc(),
+        child: AddProductScreen(),
+      ),
+    ),
 
     ShellRoute(
       builder: (context, state, child) =>
@@ -146,17 +156,14 @@ GoRouter goRouter = GoRouter(
           ],
         ),
         GoRoute(
-          path: "/messages",
+          path: "/messagesScreen",
           name: Routes.messagesScreen.name,
           builder: (context, state) => MessagesScreen(),
         ),
         GoRoute(
-          path: "/addproduct",
-          name: Routes.addProduct.name,
-          builder: (context, state) => BlocProvider(
-            create: (context) => AddProductBloc(),
-            child: AddProductScreen(),
-          ),
+          path: "/myproductScreen",
+          name: Routes.myproductScreen.name,
+          builder: (context, state) => MyProductScreen(),
         ),
         GoRoute(
           path: "/AccountScreen",
@@ -209,14 +216,6 @@ GoRouter goRouter = GoRouter(
     //   name: Routes.confirmLocationScreen.name,
     //   builder: (context, state) => ConfirmLocationScreen(),
     // ),
-    GoRoute(
-      path: "/messagesScreen",
-      name: Routes.messagesScreen.name,
-      builder: (context, state) => BlocProvider(
-        create: (context) => MessagesBloc(),
-        child: MessagesScreen(),
-      ),
-    ),
     GoRoute(
       path: "/chatScreen",
       name: Routes.chatScreen.name,

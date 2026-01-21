@@ -22,6 +22,6 @@ class Assets {
   static String cart = "assets/icons/cart.svg";
   static String phoneSvg = "assets/icons/phoneSvg.svg";
   static String person = "assets/icons/person.svg";
-
-
+  static String igHomeAdBanner1 = "assets/images/homeADBaneer.png";
+  static String igHomeAdBanner2 = "assets/images/homeADBanner2.png";
 }

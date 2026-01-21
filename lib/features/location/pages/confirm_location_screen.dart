@@ -8,398 +8,232 @@ import 'package:okbarter2/core/const/colours.dart';
 import 'package:okbarter2/core/const/fonts.dart';
 import 'package:okbarter2/core/const/urls.dart';
 import 'package:okbarter2/core/extensions/sizedbox_extension.dart';
+import 'package:okbarter2/core/routes/router.dart';
+import 'package:okbarter2/features/location/components/custom_text_validator.dart';
+import 'package:okbarter2/features/location/components/custom_textfield.dart';
 import 'package:okbarter2/features/location/components/filled_button.dart';
 
 class ConfirmLocationScreen extends StatefulWidget {
   const ConfirmLocationScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
+  State<ConfirmLocationScreen> createState() => _ConfirmLocationScreenState();
 }
 
 class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
-  //   final LatLng _center = const LatLng(19.0760, 72.8777);
-  //   late GoogleMapController _mapController;
+  final LatLng _center = const LatLng(19.0760, 72.8777);
 
-  //   @override
-  //   void initState() {
-  //     super.initState();
-  //   }
+  final Completer<GoogleMapController> _mapController =
+      Completer<GoogleMapController>();
 
-  //   Set<Marker> get _markers => {
-  //     Marker(markerId: const MarkerId('center'), position: _center),
-  //   };
+  final TextEditingController flatField = TextEditingController();
+  final TextEditingController nearbyLandField = TextEditingController();
+  final TextEditingController cityField = TextEditingController();
 
-  //   TextEditingController flatField = TextEditingController();
-  //   TextEditingController nearbyLandField = TextEditingController();
-  //   TextEditingController cityField = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  //   final GlobalKey<FormState> _formKey = GlobalKey();
+  @override
+  void dispose() {
+    flatField.dispose();
+    nearbyLandField.dispose();
+    cityField.dispose();
+    super.dispose();
+  }
 
-  //   openBottomSheet() {
-  //     showModalBottomSheet(
-  //       context: context,
-  //       builder: (_) {
-  //         return Container(
-  //           height: 398.h,
-  //           padding: EdgeInsets.only(
-  //             top: 12.h,
-  //             left: 24.w,
-  //             right: 22.w,
-  //             // bottom: 22.h,
-  //           ),
-  //           decoration: BoxDecoration(
-  //             color: Colors.white,
-  //             borderRadius: BorderRadius.circular(16.r),
-  //           ),
-  //           child: Form(
-  //             key: _formKey,
-  //             child: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               children: [
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     Text(
-  //                       'Enter complete address',
-  //                       style: TextStyle(
-  //                         color: Colours.black,
-  //                         fontSize: 20.sp,
-  //                         fontFamily: Fonts.sRegular,
-  //                       ),
-  //                     ),
-  //                     IconButton(
-  //                       onPressed: () {
-  //                         goRouter.pop();
-  //                       },
-  //                       icon: Icon(
-  //                         Icons.close,
-  //                         color: Colours.black212121,
-  //                         size: 24.sp,
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 29.heightBox,
+  void _openBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            left: 24.w,
+            right: 24.w,
+            top: 16.h,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Enter complete address',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontFamily: Fonts.sRegular,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+                24.heightBox,
 
-  //                 customeTextField(
-  //                   hintText: "Flat / house no / building",
-  //                   controller: flatField,
-  //                   validator: (value) => customTextValidator(value),
-  //                 ),
-  //                 15.heightBox,
+                customeTextField(
+                  hintText: "Flat / house no / building",
+                  controller: flatField,
+                  validator: (value) => customTextValidator(value),
+                ),
+                16.heightBox,
 
-  //                 customeTextField(
-  //                   hintText: "Nearby landmark",
-  //                   controller: nearbyLandField,
-  //                   validator: (value) => customTextValidator(value),
-  //                 ),
-  //                 15.heightBox,
+                customeTextField(
+                  hintText: "Nearby landmark",
+                  controller: nearbyLandField,
+                  validator: (value) => customTextValidator(value),
+                ),
+                16.heightBox,
 
-  //                 customeTextField(
-  //                   hintText: "Panchavti, Nashik",
-  //                   controller: cityField,
-  //                   validator: (value) => customTextValidator(value),
-  //                 ),
+                customeTextField(
+                  hintText: "City",
+                  controller: cityField,
+                  validator: (value) => customTextValidator(value),
+                ),
+                24.heightBox,
 
-  //                 30.heightBox,
-  //                 SizedBox(
-  //                   width: double.infinity,
-  //                   height: 58.h,
-  //                   child: filledButton(
-  //                     onPressed: () {
-  //                       goRouter.goNamed(Routes.messagesScreen.name);
-  //                       if (_formKey.currentState!.validate()) {}
-  //                     },
-  //                     title: 'Save address',
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //     );
-  //   }
-
-  //   @override
-  //   Widget build(BuildContext context) {
-  //     return Scaffold(
-  //       appBar: AppBar(
-  //         title: Padding(
-  //           padding: EdgeInsets.only(left: 4.w),
-  //           child: Row(
-  //             children: [
-  //               const Icon(Icons.arrow_back_ios_new),
-  //               SizedBox(width: 16.w),
-  //               Text(
-  //                 'Confirm location',
-  //                 style: TextStyle(fontSize: 16.sp, fontFamily: Fonts.sRegular),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //       body: Stack(
-  //         children: [
-  //           GoogleMap(
-  //             initialCameraPosition: CameraPosition(target: _center, zoom: 14),
-  //             markers: {
-  //               Marker(
-  //                 markerId: const MarkerId('center_marker'),
-  //                 position: _center,
-  //               ),
-  //             },
-  //             circles: {
-  //               Circle(
-  //                 circleId: const CircleId('radius_circle'),
-  //                 center: _center,
-  //                 radius: 600, // meters
-  //                 fillColor: Colours.green178777.withOpacity(0.15),
-  //                 strokeColor: Colors.transparent,
-  //                 strokeWidth: 0,
-  //               ),
-  //             },
-  //             myLocationEnabled: true,
-  //             myLocationButtonEnabled: true,
-  //             onMapCreated: (controller) {
-  //               _mapController = controller;
-  //             },
-  //           ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 56.h,
+                  child: filledButton(
+                    title: 'Save address',
+                    onPressed: () {
+                      goRouter.goNamed(Routes.homeScreen.name);
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.pop(context);
+                      }
+                    },
+                  ),
+                ),
+                16.heightBox,
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Completer<GoogleMapController> _controller =
-        Completer<GoogleMapController>();
-
-    const CameraPosition _kGooglePlex = CameraPosition(
-      target: LatLng(37.42796133580664, -122.085749655962),
-      zoom: 14.4746,
-    );
-
-    const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414,
-    );
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: EdgeInsets.only(left: 4.w),
-          child: Row(
-            children: [
-              const Icon(Icons.arrow_back_ios_new),
-              SizedBox(width: 16.w),
-              Text(
-                'Confirm location',
-                style: TextStyle(fontSize: 16.sp, fontFamily: Fonts.sRegular),
-              ),
-            ],
-          ),
+        leading: const BackButton(),
+        title: Text(
+          'Confirm location',
+          style: TextStyle(fontSize: 16.sp, fontFamily: Fonts.sRegular),
         ),
       ),
       body: Stack(
         children: [
-          // GoogleMap(
-          //   initialCameraPosition: CameraPosition(target: _center, zoom: 14),
-          //   markers: {
-          //     Marker(
-          //       markerId: const MarkerId('center_marker'),
-          //       position: _center,
-          //     ),
-          //   },
-          //   circles: {
-          //     Circle(
-          //       circleId: const CircleId('radius_circle'),
-          //       center: _center,
-          //       radius: 600, // meters
-          //       fillColor: Colours.green178777.withOpacity(0.15),
-          //       strokeColor: Colors.transparent,
-          //       strokeWidth: 0,
-          //     ),
-          //   },
-          //   myLocationEnabled: true,
-          //   myLocationButtonEnabled: true,
-          //   onMapCreated: (controller) {
-          //     _mapController = controller;
-          //   },
-          // ),
+          /// Google Map
           GoogleMap(
-            mapType: MapType.hybrid,
-            initialCameraPosition: _kGooglePlex,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
+            initialCameraPosition: CameraPosition(target: _center, zoom: 14),
+            markers: {
+              Marker(markerId: const MarkerId('center'), position: _center),
+            },
+            circles: {
+              Circle(
+                circleId: const CircleId('radius'),
+                center: _center,
+                radius: 600,
+                fillColor: Colours.green178777.withOpacity(0.15),
+                strokeColor: Colors.transparent,
+              ),
+            },
+            myLocationEnabled: false, // enable only after permission
+            myLocationButtonEnabled: false,
+            onMapCreated: (controller) {
+              _mapController.complete(controller);
             },
           ),
 
-          // floatingActionButton: FloatingActionButton.extended(
-          //   onPressed: _goToTheLake,
-          //   label: const Text('To the lake!'),
-          //   icon: const Icon(Icons.directions_boat),
-          // ),
+          /// Search bar + current location
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 16.h),
-                child: SizedBox(
-                  height: 48.h,
-                  child: TextField(
-                    onTap: () {},
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Colours.green178777.withOpacity(0.24),
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Colours.green178777.withOpacity(0.24),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: Colours.green178777.withOpacity(0.24),
-                          width: 1.5,
-                        ),
-                      ),
-                      prefixIcon: Transform.scale(
-                        scale: 0.4,
-                        child: SvgPicture.asset(Assets.icSearchIcon),
-                      ),
-                      hintText: 'Search Location manually',
-                      hintStyle: TextStyle(
-                        color: Colours.grey900,
-                        fontSize: 14,
-                        fontFamily: Fonts.sSemiBold,
-                      ),
+                padding: EdgeInsets.all(24.w),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search location manually',
+                    prefixIcon: Transform.scale(
+                      scale: 0.4,
+                      child: SvgPicture.asset(Assets.icSearchIcon),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                   ),
                 ),
               ),
-              472.heightBox,
+              const Spacer(),
               Container(
-                width: 176.w,
-                height: 34.h,
+                margin: EdgeInsets.only(bottom: 260.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colours.redEA1E63.withOpacity(0.38),
-                  ),
-                  borderRadius: BorderRadius.circular(6.r),
                   color: Colours.white,
+                  borderRadius: BorderRadius.circular(6.r),
+                  border: Border.all(color: Colours.redEA1E63.withOpacity(0.3)),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 8.h,
-                    bottom: 8.h,
-                    right: 14.w,
-                    left: 12.w,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset(Assets.icCurrentLocation),
-                      Text(
-                        'Use current location',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: Fonts.sRegular,
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(Assets.icCurrentLocation),
+                    8.widthBox,
+                    Text(
+                      'Use current location',
+                      style: TextStyle(fontSize: 12.sp),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
 
+          /// Bottom sheet preview
           Positioned(
-            left: 0.w,
-            right: 0.w,
-            bottom: 0.h,
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: Container(
-              height: 230,
+              padding: EdgeInsets.all(24.w),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.r),
+                color: Colours.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 12,
-                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
-              child: Padding(
-                padding: EdgeInsets.only(left: 24.w, right: 16.w, top: 12.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Select a saved address',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontFamily: Fonts.sRegular,
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Select a saved address',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontFamily: Fonts.sRegular,
                     ),
-                    28.heightBox,
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(Icons.location_pin),
-                        16.widthBox,
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Panchvati  ',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontFamily: Fonts.sRegular,
-                                ),
-                              ),
-                              Text(
-                                'Nashik',
-                                style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontFamily: Fonts.sRegular,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'CHANGE',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              fontFamily: Fonts.sRegular,
-                              color: Colours.redEA1E63,
-                            ),
-                          ),
-                        ),
-                      ],
+                  ),
+                  24.heightBox,
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56.h,
+                    child: filledButton(
+                      title: 'Add more address details',
+                      onPressed: _openBottomSheet,
                     ),
-                    24.heightBox,
-                    SizedBox(
-                      width: double.infinity,
-                      height: 58.h,
-                      child: filledButton(
-                        onPressed: () {},
-                        title: 'Add more address details',
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

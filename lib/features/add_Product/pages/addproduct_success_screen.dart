@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:okbarter2/core/const/colours.dart';
 import 'package:okbarter2/core/const/fonts.dart';
-
+import 'package:okbarter2/core/routes/router.dart';
 
 class AddproductSuccessScreen extends StatefulWidget {
   const AddproductSuccessScreen({super.key});
@@ -18,9 +18,9 @@ class _AddproductSuccessScreenState extends State<AddproductSuccessScreen> {
     super.initState();
 
     /// Auto navigate after animation
-    // Future.delayed(const Duration(seconds: 10), () {
-    //   Navigator.pop(context); // or push to next screen
-    // });
+    Future.delayed(const Duration(seconds: 2), () {
+      goRouter.goNamed(Routes.homeScreen.name); // or push to next screen
+    });
   }
 
   @override
