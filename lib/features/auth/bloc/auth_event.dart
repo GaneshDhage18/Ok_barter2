@@ -38,3 +38,12 @@ class CompleteOtpTimer extends AuthEvent {
 class ResendOtpEvent extends AuthEvent {
   const ResendOtpEvent();
 }
+
+class SendOtpEvent extends AuthEvent {
+  final String mobileNumber;
+
+  const SendOtpEvent({required this.mobileNumber});
+
+  @override
+  List<Object?> get props => [mobileNumber];
+}

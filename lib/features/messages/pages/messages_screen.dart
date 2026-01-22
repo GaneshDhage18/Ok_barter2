@@ -12,86 +12,90 @@ import 'package:okbarter2/core/routes/router.dart';
 import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 import 'package:okbarter2/features/messages/components/custom_app_bar.dart';
 
-
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     // final bloc = context.read<MessagesBloc>();
-    return CustomAppBar(
-      title: 'Trades',
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            24.heightBox,
-            Row(
-              children: List.generate(filtersList.length, (index) {
-                return BlocBuilder<MessagesBloc, MessagesState>(
-                  buildWhen: (prev, curr) =>
-                      curr is SelectedCategorySuccessState ||
-                      curr is MessagesInitial,
-                  builder: (context, state) {
-                    final selectedIndex = state is SelectedCategorySuccessState
-                        ? state.selctedIndex
-                        : 0;
+    return Scaffold(
+      body: CustomAppBar(
+        title: 'Trades',
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              24.heightBox,
+              Row(
+                children: List.generate(filtersList.length, (index) {
+                  return BlocBuilder<MessagesBloc, MessagesState>(
+                    buildWhen: (prev, curr) =>
+                        curr is SelectedCategorySuccessState ||
+                        curr is MessagesInitial,
+                    builder: (context, state) {
+                      final selectedIndex =
+                          state is SelectedCategorySuccessState
+                          ? state.selctedIndex
+                          : 0;
 
-                    final isSelected = selectedIndex == index;
+                      final isSelected = selectedIndex == index;
 
-                    return GestureDetector(
-                      onTap: () {
-                        context.read<MessagesBloc>().add(
-                          SelectedCategoryEvent(index: index),
-                        );
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: 12.w),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20.w,
-                          vertical: 8.h,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.r),
-                          border: Border.all(color: Colours.primary),
-                          color: isSelected ? Colours.primary : Colours.white,
-                        ),
-                        child: Text(
-                          filtersList[index],
-                          style: TextStyle(
-                            fontFamily: Fonts.sMedium,
-                            fontSize: 12.sp,
-                            color: isSelected ? Colours.white : Colours.primary,
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<MessagesBloc>().add(
+                            SelectedCategoryEvent(index: index),
+                          );
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 12.w),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.w,
+                            vertical: 8.h,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.r),
+                            border: Border.all(color: Colours.primary),
+                            color: isSelected ? Colours.primary : Colours.white,
+                          ),
+                          child: Text(
+                            filtersList[index],
+                            style: TextStyle(
+                              fontFamily: Fonts.sMedium,
+                              fontSize: 12.sp,
+                              color: isSelected
+                                  ? Colours.white
+                                  : Colours.primary,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              }),
-            ),
+                      );
+                    },
+                  );
+                }),
+              ),
 
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                padding: EdgeInsets.only(top: 24.h),
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        goRouter.pushNamed(Routes.chatScreen.name);
-                      },
-                      child: TradesCard(),
-                    ),
-                    8.heightBox,
-                    Divider(color: Colours.grey100.withOpacity(0.13)),
-                    16.heightBox,
-                  ],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 5,
+                  padding: EdgeInsets.only(top: 24.h),
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          goRouter.pushNamed(Routes.chatScreen.name);
+                        },
+                        child: TradesCard(),
+                      ),
+                      8.heightBox,
+                      Divider(color: Colours.grey100.withOpacity(0.13)),
+                      16.heightBox,
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

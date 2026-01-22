@@ -19,7 +19,7 @@ class _AddproductSuccessScreenState extends State<AddproductSuccessScreen> {
 
     /// Auto navigate after animation
     Future.delayed(const Duration(seconds: 2), () {
-      goRouter.goNamed(Routes.homeScreen.name); // or push to next screen
+      goRouter.goNamed(Routes.homeScreen.name);
     });
   }
 

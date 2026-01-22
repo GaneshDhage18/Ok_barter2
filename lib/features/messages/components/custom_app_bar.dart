@@ -12,38 +12,32 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colours.darkprimary,
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: [
-            58.heightBox,
-            Text(
-              title,
-              style: TextStyle(
-                fontFamily: Fonts.sMedium,
-                fontSize: 24.sp,
-                color: Colours.white,
-              ),
-            ),
-            24.heightBox,
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colours.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24.r),
-                    topRight: Radius.circular(24.r),
-                  ),
-                ),
-                child: child,
-              ),
-            ),
-          ],
+    return Column(
+      children: [
+        58.heightBox,
+        Text(
+          title,
+          style: TextStyle(
+            fontFamily: Fonts.sMedium,
+            fontSize: 24.sp,
+            color: Colours.white,
+          ),
         ),
-      ),
+        24.heightBox,
+        Expanded(
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colours.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24.r),
+                topRight: Radius.circular(24.r),
+              ),
+            ),
+            child: child,
+          ),
+        ),
+      ],
     );
   }
 }

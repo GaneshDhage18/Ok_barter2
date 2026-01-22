@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:okbarter2/core/extensions/app_imports.dart';
 import 'package:okbarter2/features/add_Product/bloc/add_Product_bloc.dart';
 import 'package:okbarter2/features/add_Product/components/lists.dart';
-
 import 'package:okbarter2/features/add_Product/components/textformfeild.dart';
+import 'package:okbarter2/features/location/components/filled_button.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -46,35 +46,33 @@ class _AddProductScreenState extends State<AddProductScreen> {
         key: _formkey,
         child: Column(
           children: [
-            20.heightBox,
-
-            /// Header
-            Container(
-              height: 80.h,
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      goRouter.pop();
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 28.w,
+            SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        goRouter.pop();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 28.w,
+                      ),
                     ),
-                  ),
-                  30.widthBox,
-                  Text(
-                    "Add product for Barter",
-                    style: TextStyle(
-                      fontFamily: Fonts.sSemiBold,
-                      fontSize: 20.sp,
-                      color: Colors.white,
+                    30.widthBox,
+                    Text(
+                      "Add product for Barter",
+                      style: TextStyle(
+                        fontFamily: Fonts.sSemiBold,
+                        fontSize: 20.sp,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -154,6 +152,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
                               if (state is AddproductImageSuccessState) {
                                 return ListView.separated(
+                                  padding: EdgeInsets.zero,
                                   scrollDirection: Axis.horizontal,
                                   itemCount: state.images.length + 1,
                                   separatorBuilder: (_, __) => 10.widthBox,
@@ -456,31 +455,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                         ],
                       ),
-
-                      20.heightBox,
+                      40.heightBox,
 
                       /// Submit
                       SizedBox(
                         width: double.infinity,
-                        child: FilledButton(
-                          style: FilledButton.styleFrom(
-                            backgroundColor: Colours.primary,
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () {
-                            if (!_formkey.currentState!.validate()) {
-                              return; // stop if any field is invalid
-                            }
-
-                            goRouter.go("/productaddedsuccess");
-                          },
-                          child: Text(
-                            "Add Product",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: Fonts.sSemiBold,
-                            ),
-                          ),
+                        height: 58.h,
+                        child: filledButton(
+                          onPressed: () {},
+                          title: 'Add Product',
                         ),
                       ),
 

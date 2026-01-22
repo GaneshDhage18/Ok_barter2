@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:okbarter2/core/errors/exceptions.dart';
+import 'package:okbarter2/features/auth/repository/auth_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -8,6 +10,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   static const int _timerDuration = 30;
   Timer? _timer;
+  final AuthRepository repository = AuthRepository();
 
   AuthBloc() : super(const PasswordVisibilytyState(obsecure: true)) {
     on<TogglePasswordVisibiltyEvent>(_toggleVisibility);
@@ -15,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<TickOtpTimer>(_onTick);
     on<CompleteOtpTimer>(_onCompleteTimer);
     on<ResendOtpEvent>(_onResendOtp);
+    on<SendOtpEvent>(_sendOtpEvent);
   }
 
   /// ================= PASSWORD VISIBILITY =================
@@ -70,5 +74,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> close() {
     _timer?.cancel();
     return super.close();
+  }
+
+  _sendOtpEvent(SendOtpEvent event, emit) async {
+    emit(SendOtpEventLoadingState());
+    try {
+      await repository.sendOtp(event.mobileNumber);
+      emit(SendOtpEventSuccessState());
+    } on NoInternetException catch (e) {
+      emit(NoInternetState());
+    } on ApiException catch (e) {
+      emit(SendOtpEventErrorState(error: e.message.toString()));
+    } catch (e) {
+      emit(SendOtpEventErrorState(error: e.toString()));
+    }
   }
 }

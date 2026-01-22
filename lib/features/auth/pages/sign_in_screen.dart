@@ -6,6 +6,7 @@ import 'package:okbarter2/core/const/colours.dart';
 import 'package:okbarter2/core/const/fonts.dart';
 import 'package:okbarter2/core/const/urls.dart';
 import 'package:okbarter2/core/extensions/sizedbox_extension.dart';
+import 'package:okbarter2/core/globals/globals.dart';
 import 'package:okbarter2/core/routes/router.dart';
 import 'package:okbarter2/features/auth/bloc/auth_bloc.dart';
 import 'package:okbarter2/features/auth/componets/custome_textfield.dart';
@@ -13,8 +14,8 @@ import 'package:okbarter2/features/auth/componets/validators.dart';
 
 class SignInScreen extends StatelessWidget {
   final GlobalKey<FormState> formkey = GlobalKey();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+  TextEditingController mobileController = TextEditingController();
   SignInScreen({super.key});
 
   @override
@@ -81,11 +82,10 @@ class SignInScreen extends StatelessWidget {
 
                     /// EMAIL
                     CustomTextField(
-                      validator: Validators.email,
-                      controller: passwordController,
-                      label: "Email Id",
-                      hintText: "Enter your email",
-                      keyboardType: TextInputType.emailAddress,
+                      controller: mobileController,
+                      label: "Mobile Number",
+                      hintText: "Enter your mobile number",
+                      keyboardType: TextInputType.number,
                       prefixIcon: Icon(
                         Icons.email,
                         color: Colours.primary,
@@ -93,74 +93,62 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
 
-                    16.heightBox,
-
-                    /// PASSWORD (BLOC)
-                    BlocBuilder<AuthBloc, AuthState>(
-                      buildWhen: (previous, current) =>
-                          current is PasswordVisibilytyState,
-                      builder: (context, state) {
-                        final isObsecure = state is PasswordVisibilytyState
-                            ? state.obsecure
-                            : true;
-
-                        return CustomTextField(
-                          validator: Validators.password,
-                          controller: passwordController,
-                          label: "Password",
-                          hintText: "Enter your password",
-                          isObscure: isObsecure, // ✅ YOU MISSED THIS
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: Colours.primary,
-                            size: 20.w,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              context.read<AuthBloc>().add(
-                                TogglePasswordVisibiltyEvent(),
-                              );
-                            },
-                            icon: Icon(
-                              isObsecure
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colours.primary,
-                              size: 20.w,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
                     34.heightBox,
                     SizedBox(
                       width: double.infinity,
                       height: 58.h,
 
-                      child: FilledButton(
-                        style: FilledButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(16.r),
-                          ),
+                      child: BlocConsumer<AuthBloc, AuthState>(
+                        builder: (context, state) {
+                          return FilledButton(
+                            style: FilledButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadiusGeometry.circular(
+                                  16.r,
+                                ),
+                              ),
 
-                          backgroundColor: Colours.primary,
-                        ),
-                        onPressed: () {
-                          goRouter.goNamed(Routes.homeScreen.name);
+                              backgroundColor: Colours.primary,
+                            ),
+                            onPressed: state is SendOtpEventLoadingState
+                                ? null
+                                : () {
+                                    if (formkey.currentState!.validate()) {
+                                      context.read<AuthBloc>().add(
+                                        SendOtpEvent(
+                                          mobileNumber: mobileController.text,
+                                        ),
+                                      );
+                                    }
+                                  },
+                            child: state is SendOtpEventLoadingState
+                                ? CircularProgressIndicator()
+                                : Text(
+                                    "Continue",
+                                    style: TextStyle(
+                                      fontFamily: Fonts.sBold,
+                                      fontSize: 16.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                          );
+                        },
+                        listener: (context, state) {
+                          if (state is SendOtpEventSuccessState) {
+                            goRouter.goNamed(
+                              Routes.otpVerificationScreen.name,
+                              extra: mobileController.text,
+                            );
+                          }
 
-                          if (formkey.currentState!.validate()) {
-                            final email = emailController.text.trim();
-                            // 👈 your next screen route
+                          if (state is NoInternetState) {
+                            logger.e("No Internet Snackbar");
+                          }
+
+                          if (state is SendOtpEventErrorState) {
+                            logger.e(state.error);
                           }
                         },
-                        child: Text(
-                          "Sign up",
-                          style: TextStyle(
-                            fontFamily: Fonts.sBold,
-                            fontSize: 16.sp,
-                            color: Colors.white,
-                          ),
-                        ),
                       ),
                     ),
                     29.heightBox,

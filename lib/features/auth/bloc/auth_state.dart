@@ -38,3 +38,19 @@ class OtpTimerCompleted extends AuthState {}
 /// ================= OTP RESEND =================
 
 class OtpResentSuccess extends AuthState {}
+
+class SendOtpEventStates extends AuthState {}
+
+class SendOtpEventLoadingState extends SendOtpEventStates {}
+
+class SendOtpEventSuccessState extends SendOtpEventStates {}
+
+class SendOtpEventErrorState extends SendOtpEventStates {
+  final String error;
+  final DateTime _dateTime = DateTime.now();
+  SendOtpEventErrorState({required this.error});
+  @override
+  List<Object> get props => [error, _dateTime];
+}
+
+class NoInternetState extends AuthState {}

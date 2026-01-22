@@ -22,7 +22,6 @@ import 'package:okbarter2/features/instrest/bloc/instrest_bloc.dart';
 import 'package:okbarter2/features/instrest/pages/instrest_screen.dart';
 import 'package:okbarter2/features/location/pages/confirm_location_screen.dart';
 import 'package:okbarter2/features/location/pages/location_screen.dart';
-import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 import 'package:okbarter2/features/messages/pages/messages_screen.dart';
 import 'package:okbarter2/features/my_product/pages/my_product_screen.dart';
 import 'package:okbarter2/features/product_details/pages/product_details_screen.dart';
@@ -53,7 +52,7 @@ enum Routes {
 }
 
 GoRouter goRouter = GoRouter(
-  initialLocation: '/homeScreen',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: "/",

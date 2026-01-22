@@ -1,8 +1,17 @@
 import 'package:okbarter2/core/extensions/app_imports.dart';
+import 'package:okbarter2/core/services/local_db.dart';
+import 'package:okbarter2/core/services/user.dart';
 import 'package:okbarter2/features/auth/bloc/auth_bloc.dart';
 import 'package:okbarter2/features/messages/bloc/messages_bloc.dart';
 
-void main() {
+onAppStart() async {
+  await LocalDb().init();
+  CurrentUser().init();
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await onAppStart();
   runApp(const OkBarter());
 }
 
