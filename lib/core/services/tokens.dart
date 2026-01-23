@@ -16,14 +16,17 @@ class Tokens {
     return _refreshToken;
   }
 
-  save({required String accessToken, required String refreshToken}) async {
+  static save({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
     _accessToken = accessToken;
     _refreshToken = refreshToken;
     final FlutterSecureStorage storage = FlutterSecureStorage();
     await storage.write(key: "refreshToken", value: refreshToken);
   }
 
-  clear() {
+  static clear() {
     _accessToken = null;
     _refreshToken = null;
     final FlutterSecureStorage storage = FlutterSecureStorage();

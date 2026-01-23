@@ -32,29 +32,17 @@ class DioErrorMapper {
         );
 
       case DioExceptionType.badResponse:
-        final statusCode = error.response?.statusCode;
         final data = error.response?.data;
 
-        if (statusCode == 400) {
-          return ApiException(
-            message: data is Map && data['message'] != null
-                ? data['message'].toString()
-                : 'Bad request',
-          );
-        }
-
-        return NetworkException(
-          type: NetworkErrorType.unexpected,
-          message: 'Server error ($statusCode)',
-          statusCode: statusCode,
+        return ApiException(
+          message: data is Map && data['message'] != null
+              ? data['message'].toString()
+              : 'Bad request',
         );
 
       case DioExceptionType.connectionError:
         if (error.error is SocketException) {
-          return NetworkException(
-            type: NetworkErrorType.noInternet,
-            message: 'No internet connection',
-          );
+          return NoInternetException();
         }
         return NetworkException(
           type: NetworkErrorType.unexpected,

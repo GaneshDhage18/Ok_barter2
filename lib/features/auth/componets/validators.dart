@@ -68,4 +68,19 @@ class Validators {
 
     return null; // ✅ VALID
   }
+
+  //Phone number Validator
+  static String? phoneNumber(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Phone number is required';
+    }
+
+    final phoneRegex = RegExp(r'^[6-9]\d{9}$');
+
+    if (!phoneRegex.hasMatch(value.trim())) {
+      return 'Enter a valid 10-digit phone number';
+    }
+
+    return null; // ✅ VALID
+  }
 }

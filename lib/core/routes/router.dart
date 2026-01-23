@@ -27,6 +27,8 @@ import 'package:okbarter2/features/my_product/pages/my_product_screen.dart';
 import 'package:okbarter2/features/product_details/pages/product_details_screen.dart';
 import 'package:okbarter2/features/search/pages/search_screen.dart';
 
+final GlobalKey<NavigatorState> rootNavigator = GlobalKey();
+
 enum Routes {
   splashScreen,
   locationScreen,
@@ -52,6 +54,7 @@ enum Routes {
 }
 
 GoRouter goRouter = GoRouter(
+  navigatorKey: rootNavigator,
   initialLocation: '/',
   routes: [
     GoRoute(
@@ -101,7 +104,7 @@ GoRouter goRouter = GoRouter(
         final email = state.extra as String;
         return CustomTransitionPage(
           key: state.pageKey,
-          child: OtpVerificationScreen(email: email),
+          child: OtpVerificationScreen(phoneNumber: email),
           transitionsBuilder: _slideTransition,
         );
       },

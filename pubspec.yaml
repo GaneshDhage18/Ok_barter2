@@ -51,6 +51,8 @@ dependencies:
   hive_flutter: ^1.1.0
   logger: ^2.6.2
   pretty_dio_logger: ^1.4.0
+  device_info_plus: ^12.3.0
+  awesome_snackbar_content: ^0.1.7
   
 
 dev_dependencies:

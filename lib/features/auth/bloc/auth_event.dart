@@ -39,6 +39,7 @@ class ResendOtpEvent extends AuthEvent {
   const ResendOtpEvent();
 }
 
+///=============================================   SEND OTP EVENT ============================================///
 class SendOtpEvent extends AuthEvent {
   final String mobileNumber;
 
@@ -47,3 +48,36 @@ class SendOtpEvent extends AuthEvent {
   @override
   List<Object?> get props => [mobileNumber];
 }
+
+///=============================================   SEND OTP EVENT ============================================///
+
+///=============================================   VERIFY OTP EVENT ============================================///
+class VerifyOtpEvent extends AuthEvent {
+  final String number;
+  final String otp;
+  final String? deviceId;
+  final String? deviceType;
+
+  const VerifyOtpEvent({
+    required this.number,
+    required this.otp,
+    this.deviceId,
+    this.deviceType,
+  });
+  @override
+  // TODO: implement props
+  List<Object?> get props => [number, otp, deviceId, deviceType];
+}
+
+///=============================================   VERIFY OTP EVENT ============================================///
+
+class ChangeAuthStatus extends AuthEvent {
+  final AuthenticationStatus status;
+
+  const ChangeAuthStatus({required this.status});
+
+  @override
+  List<Object?> get props => [status];
+}
+
+class HandleAppOpen extends AuthEvent {}

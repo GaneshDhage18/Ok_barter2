@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:okbarter2/core/components/snackbar.dart';
 import 'package:okbarter2/core/const/colours.dart';
 import 'package:okbarter2/core/const/fonts.dart';
 import 'package:okbarter2/core/const/urls.dart';
@@ -82,12 +83,13 @@ class SignInScreen extends StatelessWidget {
 
                     /// EMAIL
                     CustomTextField(
+                      // validator: Validators.phoneNumber,
                       controller: mobileController,
                       label: "Mobile Number",
                       hintText: "Enter your mobile number",
                       keyboardType: TextInputType.number,
                       prefixIcon: Icon(
-                        Icons.email,
+                        Icons.phone,
                         color: Colours.primary,
                         size: 20.w,
                       ),
@@ -139,14 +141,15 @@ class SignInScreen extends StatelessWidget {
                               Routes.otpVerificationScreen.name,
                               extra: mobileController.text,
                             );
+                            CustomSnackbar.success("Otp Sent Successfully !");
                           }
 
                           if (state is NoInternetState) {
-                            logger.e("No Internet Snackbar");
+                            CustomSnackbar.failure("No Internet Available");
                           }
 
                           if (state is SendOtpEventErrorState) {
-                            logger.e(state.error);
+                            CustomSnackbar.failure(state.error);
                           }
                         },
                       ),

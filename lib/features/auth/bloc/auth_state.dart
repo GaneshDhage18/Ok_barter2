@@ -54,3 +54,36 @@ class SendOtpEventErrorState extends SendOtpEventStates {
 }
 
 class NoInternetState extends AuthState {}
+
+///=============================================   VERIFY OTP STATES ============================================///
+
+class VerifyOtpStates extends AuthState {}
+
+class VerifyOtpLoadingState extends VerifyOtpStates {}
+
+class VerifyOtpSuccessState extends VerifyOtpStates {}
+
+class VerifyOtpErrorState extends VerifyOtpStates {
+  final String error;
+  final DateTime _dateTime = DateTime.now();
+  VerifyOtpErrorState({required this.error});
+  @override
+  List<Object> get props => [error, _dateTime];
+}
+
+///=============================================   VERIFY OTP STATES ============================================///
+
+class AuthStateUpdated extends AuthState {
+  final AuthenticationStatus status;
+
+  AuthStateUpdated({required this.status});
+
+  @override
+  List<Object?> get props => [status];
+}
+
+class NavigateToOnboardingState extends AuthState {}
+
+class NavigateToSignInState extends AuthState {}
+
+class NavigateToHomeState extends AuthState {}
